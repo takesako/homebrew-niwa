@@ -1,0 +1,20 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Tap repository
+        run: brew tap takesako/niwa "$GITHUB_WORKSPACE"
+      - name: Install formula
+        run: brew install --build-from-source takesako/niwa/niwa
+      - name: Test formula
+        run: brew test takesako/niwa/niwa
