@@ -9,6 +9,7 @@ class Niwa < Formula
 
   def install
     libexec.install Dir["*"]
+    chmod 0755, libexec/"dist/cli.js"
     bin.install_symlink libexec/"dist/cli.js" => "niwa"
   end
 
