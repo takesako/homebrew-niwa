@@ -31,24 +31,32 @@ brew untap takesako/niwa
 
 ## リリース手順
 
-1. `takesako/niwa` にタグを作成します。
+1. `takesako/niwa-cli` でBun単体バイナリを作成します。
 
    ```sh
-   git tag v0.1.1
-   git push origin v0.1.1
+   bun run build:binaries
    ```
 
-2. GitHub Releasesの `v0.1.1` に `niwa-cli-0.1.1.tgz` を添付します。
+   現在のOS・CPU向けだけを作成する場合は `bun run build:binary` を使います。
 
-3. 配布ファイルのSHA-256を確認します。
+2. バージョンタグを作成してpushします。
 
    ```sh
-   shasum -a 256 niwa-cli-0.1.1.tgz
+   git tag v0.1.2
+   git push origin v0.1.2
    ```
 
-4. `Formula/niwa.rb` の `url`、`sha256`、必要ならバージョンを更新します。
+3. GitHub Releasesの `v0.1.2` に `build/niwa-*` を添付します。
 
-5. Formulaを検査します。
+4. macOS/Linux用バイナリのSHA-256を確認します。
+
+   ```sh
+   shasum -a 256 build/niwa-darwin-* build/niwa-linux-*
+   ```
+
+5. `niwa.rb` の `version`、`url`、`sha256` を更新します。
+
+6. Formulaを検査します。
 
    ```sh
    brew tap takesako/niwa
