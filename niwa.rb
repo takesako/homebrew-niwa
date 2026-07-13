@@ -2,7 +2,7 @@ class Niwa < Formula
   desc "niwa Japanese programming language and command-line interpreter"
   homepage "https://github.com/takesako/niwa-cli"
   url "https://github.com/takesako/niwa-cli/archive/refs/tags/v0.1.1.tar.gz"
-  sha256 "bb07456977a80b66d19a6b1c6548813800bd894014a228446503526ce3104e94"
+  sha256 "073be7b5fd2961bff4172ec3f3e71f49ba74fe7de4f8d1aaa34855b7c6f3cc2d"
   license "MIT"
 
   depends_on "node"
