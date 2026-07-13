@@ -15,6 +15,15 @@ niwa -e '「こんにちは」 と いう'
 niwa program.niwa
 ```
 
+TypeScriptソースはHomebrew管理下の `libexec` にインストールされ、Homebrew版Bunで直接実行されます。
+
+```sh
+cd "$(brew --prefix niwa)/libexec"
+vi src/cli.ts
+```
+
+ソースの変更は次回の `niwa` 実行から反映されます。`brew upgrade` または `brew reinstall` を実行すると変更は上書きされます。
+
 ## 更新
 
 ```sh
@@ -31,32 +40,23 @@ brew untap takesako/niwa
 
 ## リリース手順
 
-1. `takesako/niwa-cli` でBun単体バイナリを作成します。
+1. `takesako/niwa-cli` でバージョンタグを作成してpushします。
 
    ```sh
-   bun run build:binaries
+   git tag v0.1.4
+   git push origin v0.1.4
    ```
 
-   現在のOS・CPU向けだけを作成する場合は `bun run build:binary` を使います。
-
-2. バージョンタグを作成してpushします。
+2. ソースtarballのSHA-256を確認します。
 
    ```sh
-   git tag v0.1.2
-   git push origin v0.1.2
+   curl -L https://github.com/takesako/niwa-cli/archive/refs/tags/v0.1.4.tar.gz -o niwa-cli-v0.1.4.tar.gz
+   shasum -a 256 niwa-cli-v0.1.4.tar.gz
    ```
 
-3. GitHub Releasesの `v0.1.2` に `build/niwa-*` を添付します。
+3. `niwa.rb` の `url` と `sha256` を更新します。
 
-4. macOS/Linux用バイナリのSHA-256を確認します。
-
-   ```sh
-   shasum -a 256 build/niwa-darwin-* build/niwa-linux-*
-   ```
-
-5. `niwa.rb` の `version`、`url`、`sha256` を更新します。
-
-6. Formulaを検査します。
+4. Formulaを検査します。
 
    ```sh
    brew tap takesako/niwa
